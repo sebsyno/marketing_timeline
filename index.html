@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDENTT — Marketing Rollout Timeline</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0F1623;
+    --slate:  #1A2235;
+    --card:   #1E293B;
+    --border: #2A3A52;
+    --gold:   #C9A84C;
+    --gold-dim: #A88A3E;
+    --gold-glow: rgba(201,168,76,0.15);
+    --text:   #E2E8F0;
+    --muted:  #7A8FA6;
+    --white:  #FFFFFF;
+    --green:  #3DB87A;
+    --blue:   #4A9EDB;
+    --red:    #E05A5A;
+    --purple: #9B7FD4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 48px 40px 36px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .header-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+
+  .header h1 span {
+    color: var(--gold);
+  }
+
+  .header-sub {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 620px;
+    line-height: 1.7;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 20px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── PHASE TABS ── */
+  .phase-nav {
+    display: flex;
+    gap: 0;
+    padding: 24px 40px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .phase-nav::-webkit-scrollbar { display: none; }
+
+  .phase-tab {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .phase-tab:hover { color: var(--text); border-color: var(--gold-dim); }
+  .phase-tab.active { color: var(--gold); border-color: var(--gold); background: var(--gold-glow); }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── PHASE PANEL ── */
+  .phase-panel {
+    display: none;
+    border: 1px solid var(--border);
+    border-radius: 0 8px 8px 8px;
+    padding: 32px;
+    margin-bottom: 32px;
+    background: var(--slate);
+    animation: fadeIn 0.25s ease;
+  }
+
+  .phase-panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .phase-title-group {}
+
+  .phase-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .phase-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .phase-timeframe {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 4px;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  .phase-goal {
+    background: var(--gold-glow);
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 28px;
+    line-height: 1.65;
+  }
+
+  .phase-goal strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── INITIATIVE GRID ── */
+  .initiative-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .initiative-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: default;
+  }
+
+  .initiative-card:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-2px);
+  }
+
+  .initiative-card.priority {
+    border-color: var(--gold-dim);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .card-category {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  .cat-brand    { background: rgba(155,127,212,0.15); color: var(--purple); }
+  .cat-content  { background: rgba(74,158,219,0.15);  color: var(--blue); }
+  .cat-demand   { background: rgba(201,168,76,0.15);  color: var(--gold); }
+  .cat-product  { background: rgba(61,184,122,0.15);  color: var(--green); }
+  .cat-infra    { background: rgba(224,90,90,0.15);   color: var(--red); }
+  .cat-partner  { background: rgba(74,158,219,0.15);  color: var(--blue); }
+  .cat-event    { background: rgba(155,127,212,0.15); color: var(--purple); }
+
+  .priority-flag {
+    font-size: 10px;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+
+  .card-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .card-owner {
+    margin-top: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-owner::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+
+  /* ── DELIVERABLES ── */
+  .deliverables-section {
+    margin-top: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+
+  .deliverables-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .deliverables-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .deliverable-tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .deliverable-tag::before {
+    content: '✓';
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* ── METRICS ROW ── */
+  .metrics-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+
+  .metric-block {
+    flex: 1;
+    min-width: 140px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+
+  .metric-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .metric-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .metric-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── WARNING / NOTES ── */
+  .phase-note {
+    background: rgba(224,90,90,0.08);
+    border: 1px solid rgba(224,90,90,0.25);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #E08080;
+    margin-top: 20px;
+    line-height: 1.65;
+  }
+
+  .phase-note strong {
+    color: var(--red);
+  }
+
+  /* ── OVERVIEW TIMELINE ── */
+  .overview-panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    margin-bottom: 32px;
+    background: var(--slate);
+  }
+
+  .overview-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .overview-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .timeline-track {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline-track::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--border));
+    border-radius: 2px;
+  }
+
+  .timeline-row {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 20px;
+  }
+
+  .timeline-row::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--navy);
+    z-index: 1;
+  }
+
+  .timeline-row.completed::before {
+    background: var(--gold);
+  }
+
+  .tl-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tl-phase {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .tl-dates {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .tl-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .tl-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 700px;
+  }
+
+  .tl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .tl-tag {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* ── FOOTER STRIP ── */
+  .footer-strip {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 40px 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .footer-brand span { color: var(--gold); }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .header, .legend, .phase-nav, .main, .footer-strip { padding-left: 20px; padding-right: 20px; }
+    .initiative-grid { grid-template-columns: 1fr; }
+    .metrics-row { flex-direction: column; }
+    .phase-panel { padding: 20px 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .initiative-card { transition: none; }
+    .phase-panel { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <div class="header-eyebrow">IDENTT SP. Z O.O. — INTERNAL STRATEGY DOCUMENT</div>
+  <h1>Marketing Rollout<br><span>12-Month Plan</span></h1>
+  <p class="header-sub">A phased build of IDENTT's marketing engine — from positioning clarity through to a functioning European demand generation loop. Designed to create durable inbound pipeline, not short-term noise.</p>
+</div>
+
+<!-- ── LEGEND ── -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> Brand & Positioning</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Content & SEO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> Demand Generation</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Product Marketing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Infrastructure</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Partners</div>
+</div>
+
+<!-- ── PHASE TABS ── -->
+<div class="phase-nav">
+  <button class="phase-tab active" onclick="showPhase('overview')">Overview</button>
+  <button class="phase-tab" onclick="showPhase('pre')">Pre-Start</button>
+  <button class="phase-tab" onclick="showPhase('p1')">Phase 1 — Foundation</button>
+  <button class="phase-tab" onclick="showPhase('p2')">Phase 2 — Proof</button>
+  <button class="phase-tab" onclick="showPhase('p3')">Phase 3 — Engine</button>
+  <button class="phase-tab" onclick="showPhase('p4')">Phase 4 — Europe</button>
+  <button class="phase-tab" onclick="showPhase('p5')">Phase 5 — Scale</button>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div class="phase-panel active" id="phase-overview">
+    <div class="phase-header">
+      <div class="phase-title-group">
+        <div class="phase-label">Full Roadmap</div>
+        <div class="phase-title">12-Month Marketing Build</div>
+      </div>
+      <div class="phase-timeframe">Months 0 – 12</div>
+    </div>
+
+    <div class="phase-goal">
+      <strong>North Star:</strong> Transform IDENTT from a Polish-market vendor with a feature catalogue into a recognised European identity verification brand with a functioning inbound demand engine — capable of generating pipeline in CEE, DACH, and Nordics without relying solely on founder networks.
+    </div>
+
+    <div class="overview-panel" style="border:none;padding:0;background:transparent;margin:0;">
+      <div class="timeline-track">
+
+        <div class="timeline-row">
+          <div class="tl-header">
+            <span class="tl-phase">Pre-Start</span>
+            <span class="tl-dates">Weeks 1–3</span>
+          </div>
+          <div class="tl-title">Strategic Alignment</div>
+          <div class="tl-desc">Clarify the split decision. Audit what exists. Interview sales. Map ICP. Do not spend money on anything yet.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">Split decision clarity</span>
+            <span class="tl-tag">Sales interviews</span>
+            <span class="tl-tag">Competitive audit</span>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="tl-header">
+            <span class="tl-phase">Phase 1</span>
+            <span class="tl-dates">Month 1</span>
+          </div>
+          <div class="tl-title">Foundation — Positioning, Messaging, Infrastructure</div>
+          <div class="tl-desc">One positioning statement. ICP profiles. Messaging house. HubSpot set up. English site messaging refresh begins.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">Positioning</span>
+            <span class="tl-tag">Messaging house</span>
+            <span class="tl-tag">HubSpot</span>
+            <span class="tl-tag">ICP profiles</span>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="tl-header">
+            <span class="tl-phase">Phase 2</span>
+            <span class="tl-dates">Month 2</span>
+          </div>
+          <div class="tl-title">Proof — Website, Case Studies, Content Start</div>
+          <div class="tl-desc">English website live with new messaging. First 2 case studies published. Blog cadence begins. LinkedIn company page activated.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">Website refresh</span>
+            <span class="tl-tag">Case studies ×2</span>
+            <span class="tl-tag">Blog launch</span>
+            <span class="tl-tag">LinkedIn activation</span>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="tl-header">
+            <span class="tl-phase">Phase 3</span>
+            <span class="tl-dates">Months 3–4</span>
+          </div>
+          <div class="tl-title">Demand Engine — LinkedIn Ads, SEO, Partner Co-marketing</div>
+          <div class="tl-desc">First paid LinkedIn campaigns. SEO content targeting eIDAS/AML queries. Partner programme activated for co-marketing. 3rd case study live.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">LinkedIn Ads</span>
+            <span class="tl-tag">SEO content</span>
+            <span class="tl-tag">Partner co-marketing</span>
+            <span class="tl-tag">Lead scoring</span>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="tl-header">
+            <span class="tl-phase">Phase 4</span>
+            <span class="tl-dates">Months 5–8</span>
+          </div>
+          <div class="tl-title">European Market Entry — DACH + Nordics</div>
+          <div class="tl-desc">German-language content. Two priority markets activated. First European conference presence. Rebrand brief prepared if split decision is confirmed.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">DACH activation</span>
+            <span class="tl-tag">Nordics activation</span>
+            <span class="tl-tag">DE content</span>
+            <span class="tl-tag">Event presence</span>
+            <span class="tl-tag">Rebrand brief</span>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="tl-header">
+            <span class="tl-phase">Phase 5</span>
+            <span class="tl-dates">Months 9–12</span>
+          </div>
+          <div class="tl-title">Scale — Full Engine, Owned Event, Rebrand Launch</div>
+          <div class="tl-desc">IDENTT-owned event (Wrocław). Rebrand launch if split confirmed. ABM motion for enterprise targets. Full demand generation loop running.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">Owned event</span>
+            <span class="tl-tag">Rebrand launch</span>
+            <span class="tl-tag">ABM</span>
+            <span class="tl-tag">Full loop</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-block">
+        <div class="metric-label">Engine live by</div>
+        <div class="metric-value">Month 4</div>
+        <div class="metric-note">First paid campaigns running</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Pipeline visible by</div>
+        <div class="metric-value">Month 6</div>
+        <div class="metric-note">Content ranking + inbound demos</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">European presence</div>
+        <div class="metric-value">Month 7</div>
+        <div class="metric-note">DACH + Nordics activated</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Rebrand decision</div>
+        <div class="metric-value">Month 8</div>
+        <div class="metric-note">If split confirmed, brief issued</div>
+      </div>
+    </div>
+
+    <div class="phase-note">
+      <strong>Important:</strong> The split/rebrand decision should be resolved by month 3 at the latest. Building brand equity into a name or architecture that will change in 6 months wastes budget. Delay the rebrand; do not delay the messaging and content work.
+    </div>
+  </div>
+
+  <!-- PRE-START -->
+  <div class="phase-panel" id="phase-pre">
+    <div class="phase-header">
+      <div class="phase-title-group">
+        <div class="phase-label">Pre-Start</div>
+        <div class="phase-title">Strategic Alignment</div>
+      </div>
+      <div class="phase-timeframe">Weeks 1–3</div>
+    </div>
+
+    <div class="phase-goal">
+      <strong>Goal:</strong> Gather the intelligence needed to make every subsequent decision correctly. Do not build anything yet. The output of this phase is clarity — on positioning, on the split, on ICP, and on what competitors are doing that IDENTT is not.
+    </div>
+
+    <div class="initiative-grid">
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Resolve the Split Decision</div>
+        <div class="card-body">Get a directional answer from leadership: product split or market split? What entity sells to Europe? What carries the IDENTT name? This gates every brand and GTM decision.</div>
+        <div class="card-owner">CEO + Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-brand">Positioning</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Sales Intelligence Interviews</div>
+        <div class="card-body">Interview 4–6 salespeople and 3–5 current customers. Questions: What objections kill deals? What do customers say after go-live? Which verticals close fastest? This is your messaging source of truth.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+        </div>
+        <div class="card-title">Competitive Landscape Audit</div>
+        <div class="card-body">Map Authologic, Veriff, Onfido, Sumsub on positioning, pricing signals, content cadence, and ad spend. Identify where they're weak — that's your content whitespace. Authologic is the closest direct competitor to monitor most carefully.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-infra">Infrastructure</span>
+        </div>
+        <div class="card-title">Audit Existing Assets</div>
+        <div class="card-body">Inventory what exists: blog posts, case studies, whitepapers, demo videos, LinkedIn content. What's reusable in English? What's outdated? Saves budget by not recreating what already works.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-brand">Positioning</span>
+        </div>
+        <div class="card-title">ICP Mapping</div>
+        <div class="card-body">Define 3 primary buyer profiles for Europe: likely Compliance Officer, Head of Digital, and CTO/Product at fintechs/banks. Per profile: pain points, language they use, channels they're on, what they read.</div>
+        <div class="card-owner">Marketing Manager + Sales</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-content">SEO</span>
+        </div>
+        <div class="card-title">Keyword & Search Demand Audit</div>
+        <div class="card-body">Run Ahrefs/Semrush analysis on eIDAS, KYC, AML, identity verification terms in EN and DE. Identify where IDENTT currently ranks, where Authologic owns, and where there's uncontested demand.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+    </div>
+
+    <div class="deliverables-section">
+      <div class="deliverables-title">End of Phase Deliverables</div>
+      <div class="deliverables-list">
+        <div class="deliverable-tag">Split decision documented</div>
+        <div class="deliverable-tag">ICP profiles (×3)</div>
+        <div class="deliverable-tag">Sales interview insights report</div>
+        <div class="deliverable-tag">Competitor positioning map</div>
+        <div class="deliverable-tag">Asset inventory</div>
+        <div class="deliverable-tag">Keyword opportunity list</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-panel" id="phase-p1">
+    <div class="phase-header">
+      <div class="phase-title-group">
+        <div class="phase-label">Phase 1</div>
+        <div class="phase-title">Foundation</div>
+      </div>
+      <div class="phase-timeframe">Month 1</div>
+    </div>
+
+    <div class="phase-goal">
+      <strong>Goal:</strong> Create the strategic scaffolding that everything else is built on. One positioning statement that the company can repeat. A messaging house that sales and marketing share. MarTech infrastructure that can track what converts. Nothing external goes live yet — this is the internal layer.
+    </div>
+
+    <div class="initiative-grid">
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Positioning Statement</div>
+        <div class="card-body">Single sentence the entire company can repeat. Proposed direction: "Europe's compliance-grade identity verification platform — built by engineers who understand eIDAS from the inside." Validate with sales and CEO before locking.</div>
+        <div class="card-owner">Marketing Manager + CEO</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Messaging House</div>
+        <div class="card-body">Per ICP: headline claim, 3 supporting pillars, proof points, objection handles, and language to avoid. The Scientific Board, Defence Catalogue, and EU-funded R&D are proof points — they should appear in copy, not in a nav menu.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-infra">Infrastructure</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">HubSpot Setup</div>
+        <div class="card-body">CRM, contact lifecycle stages, demo request form tracking, email automation basics. Without this, you cannot measure what converts — making every spend decision a guess. This is non-negotiable before paid campaigns start.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-content">Content</span>
+        </div>
+        <div class="card-title">Content Strategy & Editorial Calendar</div>
+        <div class="card-body">Map 3 months of content: regulatory analysis pieces (eIDAS, AMLD6, EUDI wallet rollouts by country), case study pipeline, and LinkedIn post schedule. Frequency target: 1 blog post per week. Assign ownership for each piece.</div>
+        <div class="card-owner">Marketing Manager + Writer</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+        </div>
+        <div class="card-title">Brand Voice Document</div>
+        <div class="card-body">Tone guidelines for European B2B: authoritative but not dry, technical but not impenetrable, specific not generic. Include do/don't copy examples. This is what you hand to any agency, writer, or new hire.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-product">Product Marketing</span>
+        </div>
+        <div class="card-title">Sales Enablement Audit</div>
+        <div class="card-body">What does the sales team currently use in calls and follow-ups? One-pagers, decks, product sheets? Identify the biggest gaps between what exists and what they actually need to close deals in European markets.</div>
+        <div class="card-owner">Marketing Manager + Sales</div>
+      </div>
+
+    </div>
+
+    <div class="deliverables-section">
+      <div class="deliverables-title">End of Phase Deliverables</div>
+      <div class="deliverables-list">
+        <div class="deliverable-tag">Positioning statement (approved)</div>
+        <div class="deliverable-tag">Messaging house document</div>
+        <div class="deliverable-tag">HubSpot configured</div>
+        <div class="deliverable-tag">Brand voice guidelines</div>
+        <div class="deliverable-tag">3-month editorial calendar</div>
+        <div class="deliverable-tag">Sales enablement gap report</div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-block">
+        <div class="metric-label">Success indicator</div>
+        <div class="metric-value">Internal</div>
+        <div class="metric-note">CEO + sales can repeat the positioning</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Spend</div>
+        <div class="metric-value">Low</div>
+        <div class="metric-note">HubSpot + tools only, no paid media</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-panel" id="phase-p2">
+    <div class="phase-header">
+      <div class="phase-title-group">
+        <div class="phase-label">Phase 2</div>
+        <div class="phase-title">Proof</div>
+      </div>
+      <div class="phase-timeframe">Month 2</div>
+    </div>
+
+    <div class="phase-goal">
+      <strong>Goal:</strong> Get assets live that do work on your behalf — a website that converts European buyers, case studies that close deals, and a content cadence that builds authority over time. This is when IDENTT starts being visible outside Poland.
+    </div>
+
+    <div class="initiative-grid">
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">English Website Messaging Refresh</div>
+        <div class="card-body">Not a full redesign — a messaging-led rewrite of the English site. Hero speaks to European compliance buyers (not a translated Polish page). Clear product narrative, not a feature list. Demo CTA everywhere. SEO meta refreshed. Case studies as proof layer.</div>
+        <div class="card-owner">Marketing Manager + Designer</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-content">Content</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Case Studies ×2 (English)</div>
+        <div class="card-body">Properly produced, English-language. Format: challenge → solution → measurable outcome → customer quote. Nest Bank and one other. These are the most leveraged assets you'll produce — they do sales enablement and content marketing simultaneously.</div>
+        <div class="card-owner">Marketing Manager + Writer</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-content">Content</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Blog Launch — Regulatory Intelligence</div>
+        <div class="card-body">First 4 posts live. Focus: eIDAS 2.0 country-by-country analysis, AML compliance for fintechs, EUDI wallet rollout status. These capture search demand from compliance teams doing research — and they're the exact territory where IDENTT's Scientific Board gives you credibility Authologic cannot match.</div>
+        <div class="card-owner">Marketing Manager + Writer</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-demand">Demand Gen</span>
+        </div>
+        <div class="card-title">LinkedIn Company Page Activation</div>
+        <div class="card-body">Consistent company page content: 3–4 posts/week. Mix of regulatory commentary, product proof points, team culture, and industry news framing. CEO/founder thought leadership posts separately. Goal: build an audience before spending on ads.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-product">Product Marketing</span>
+        </div>
+        <div class="card-title">Solution One-Pagers (×2)</div>
+        <div class="card-body">One-pagers for the two highest-volume verticals (likely banking/fintech and e-commerce or crypto). These go into sales follow-up sequences via HubSpot. Keep them buyer-language: outcomes, compliance assurance, integration simplicity.</div>
+        <div class="card-owner">Marketing Manager + Designer</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-infra">Infrastructure</span>
+        </div>
+        <div class="card-title">Analytics & Tracking Setup</div>
+        <div class="card-body">GA4 properly configured with conversion goals (demo request, contact form, content download). UTM framework established. LinkedIn Insight Tag installed. Baseline metrics captured before paid media starts so you have a clean before/after.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+    </div>
+
+    <div class="deliverables-section">
+      <div class="deliverables-title">End of Phase Deliverables</div>
+      <div class="deliverables-list">
+        <div class="deliverable-tag">English website refreshed</div>
+        <div class="deliverable-tag">Case studies live ×2</div>
+        <div class="deliverable-tag">Blog posts live ×4</div>
+        <div class="deliverable-tag">LinkedIn activation</div>
+        <div class="deliverable-tag">Solution one-pagers ×2</div>
+        <div class="deliverable-tag">Analytics baseline set</div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-block">
+        <div class="metric-label">Target: Demo requests</div>
+        <div class="metric-value">+30%</div>
+        <div class="metric-note">vs baseline from new site</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">LinkedIn followers</div>
+        <div class="metric-value">+200</div>
+        <div class="metric-note">First month of active posting</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Content live</div>
+        <div class="metric-value">6 pieces</div>
+        <div class="metric-note">4 blog + 2 case studies</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-panel" id="phase-p3">
+    <div class="phase-header">
+      <div class="phase-title-group">
+        <div class="phase-label">Phase 3</div>
+        <div class="phase-title">Demand Engine</div>
+      </div>
+      <div class="phase-timeframe">Months 3–4</div>
+    </div>
+
+    <div class="phase-goal">
+      <strong>Goal:</strong> Light the engine. First paid campaigns. SEO content building search equity. Partner co-marketing activated. The loop — regulatory event → content → LinkedIn → inbound demo → case study → repeat — starts running for the first time.
+    </div>
+
+    <div class="initiative-grid">
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-demand">Demand Gen</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">LinkedIn Ads — First Campaigns</div>
+        <div class="card-body">Targeted at Compliance Officers, Heads of Digital, and Risk Managers at fintechs and banks in Poland + 1–2 EU markets. Formats: Thought leadership single image + Document ads (gated content). Start with a modest daily budget, optimise on demo request CPL before scaling.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-content">SEO</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">SEO Content — Compliance Queries</div>
+        <div class="card-body">2 long-form posts/month targeting high-intent search terms: "eIDAS 2.0 compliance checklist", "KYC requirements fintech Europe", "EUDI wallet integration", "AML verification API". These take 3–4 months to rank — publish now for pipeline later.</div>
+        <div class="card-owner">Marketing Manager + Writer</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-partner">Partners</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Partner Co-Marketing Activation</div>
+        <div class="card-body">Activate the existing partner programme for co-marketing: joint blog posts, webinars, partner-feature content. Partners have their own audiences — this is low-cost reach into markets where IDENTT has no brand yet. Joint webinar with one partner by end of month 4.</div>
+        <div class="card-owner">Marketing Manager + Partner team</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-content">Content</span>
+        </div>
+        <div class="card-title">Case Study ×3 (English)</div>
+        <div class="card-body">Third case study live. If possible, use a European customer (not just Polish) to signal international credibility. Promote heavily via LinkedIn organic and in ads as a gated lead magnet.</div>
+        <div class="card-owner">Marketing Manager + Writer</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-infra">Infrastructure</span>
+        </div>
+        <div class="card-title">Lead Scoring & Nurture Sequences</div>
+        <div class="card-body">In HubSpot: basic lead scoring by ICP fit and engagement. Two email nurture sequences — one for demo no-shows, one for content downloaders who haven't requested a demo. Keep sequences short: 3 emails max, high value, no fluff.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-demand">Demand Gen</span>
+        </div>
+        <div class="card-title">Google Ads — Branded + Intent Keywords</div>
+        <div class="card-body">Defend the IDENTT brand term. Test a small budget on high-intent non-brand queries ("identity verification API Europe", "KYC solution fintech"). Google Ads for bottom-of-funnel, LinkedIn for top. Keep budgets separate and measure separately.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+    </div>
+
+    <div class="deliverables-section">
+      <div class="deliverables-title">End of Phase Deliverables</div>
+      <div class="deliverables-list">
+        <div class="deliverable-tag">LinkedIn campaigns live</div>
+        <div class="deliverable-tag">Google Ads branded live</div>
+        <div class="deliverable-tag">8+ blog posts published</div>
+        <div class="deliverable-tag">Case study ×3</div>
+        <div class="deliverable-tag">Partner webinar ×1</div>
+        <div class="deliverable-tag">Lead scoring in HubSpot</div>
+        <div class="deliverable-tag">Nurture sequences active</div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-block">
+        <div class="metric-label">Demo requests/month</div>
+        <div class="metric-value">Target 15+</div>
+        <div class="metric-note">Organic + paid combined</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">LinkedIn CPL</div>
+        <div class="metric-value">Establish baseline</div>
+        <div class="metric-note">First month data only</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Content published</div>
+        <div class="metric-value">12–15 pieces</div>
+        <div class="metric-note">Cumulative by end of month 4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-panel" id="phase-p4">
+    <div class="phase-header">
+      <div class="phase-title-group">
+        <div class="phase-label">Phase 4</div>
+        <div class="phase-title">European Market Entry</div>
+      </div>
+      <div class="phase-timeframe">Months 5–8</div>
+    </div>
+
+    <div class="phase-goal">
+      <strong>Goal:</strong> IDENTT stops being a Polish vendor that sells abroad and becomes a European company. Two priority markets activated: DACH and Nordics. German-language content live. First European conference presence. Rebrand brief issued if the split decision is confirmed.
+    </div>
+
+    <div class="initiative-grid">
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-demand">Demand Gen</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">DACH Market Activation</div>
+        <div class="card-body">Germany first: local compliance narrative (BaFin, GDPR, upcoming eIDAS requirements). German-language landing page. LinkedIn Ads targeting DACH fintechs, banks, and regulated platforms. Sebastian's native German is a direct asset here — use it for market-specific content review and messaging.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-demand">Demand Gen</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Nordics Market Activation</div>
+        <div class="card-body">High digital ID maturity — BankID familiarity means buyers understand eID concepts. Position IDENTT as the bridge between Nordic BankID infrastructure and EU EUDI compliance. Target fintechs and payment platforms in Sweden, Denmark, Norway. English-language content is sufficient here.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-event">Events</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">European Conference Presence ×1</div>
+        <div class="card-body">One vertical event — not a general tech conference. Target: Money20/20 Europe, Nordic Fintech Week, or a compliance-specific event (e.g. Regtech Summit). Speaking slot preferred over booth. Prepare a post-event content piece to amplify reach beyond attendees.</div>
+        <div class="card-owner">Marketing Manager + CEO/Sales</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-content">Content</span>
+        </div>
+        <div class="card-title">German-Language Content</div>
+        <div class="card-body">3–4 German blog posts targeting DACH search queries: "eIDAS 2.0 Compliance", "KYC Anforderungen Fintech", "digitale Identitätsprüfung API". Surprisingly few IDV vendors do German-language SEO well — this is a low-competition opportunity that compounds over time.</div>
+        <div class="card-owner">Marketing Manager + DE writer</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+        </div>
+        <div class="card-title">Rebrand Brief (if split confirmed)</div>
+        <div class="card-body">If the split decision is confirmed by month 3, issue a rebrand brief to a design agency by month 6. Scope: new name (if needed), visual identity, website redesign. Timeline: 8–12 weeks for brand, 6–8 weeks for web implementation. Target rebrand launch: month 10–12.</div>
+        <div class="card-owner">Marketing Manager + CEO + Agency</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-partner">Partners</span>
+        </div>
+        <div class="card-title">European Reseller / Partner Recruitment</div>
+        <div class="card-body">In DACH and Nordics, one well-connected local partner can generate more pipeline than 6 months of LinkedIn Ads. Identify 3–5 candidate partners per market (compliance consultancies, system integrators, fintech platforms). Partner co-marketing brief prepared.</div>
+        <div class="card-owner">Marketing Manager + Sales</div>
+      </div>
+
+    </div>
+
+    <div class="deliverables-section">
+      <div class="deliverables-title">End of Phase Deliverables</div>
+      <div class="deliverables-list">
+        <div class="deliverable-tag">DACH campaigns live</div>
+        <div class="deliverable-tag">Nordics campaigns live</div>
+        <div class="deliverable-tag">DE content ×4</div>
+        <div class="deliverable-tag">European conference attended</div>
+        <div class="deliverable-tag">European partner pipeline</div>
+        <div class="deliverable-tag">Rebrand brief issued</div>
+        <div class="deliverable-tag">20+ content pieces total</div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-block">
+        <div class="metric-label">Non-PL demo requests</div>
+        <div class="metric-value">30%+</div>
+        <div class="metric-note">Of total monthly volume</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Organic traffic growth</div>
+        <div class="metric-value">3× baseline</div>
+        <div class="metric-note">SEO content starting to rank</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">LinkedIn followers</div>
+        <div class="metric-value">2,000+</div>
+        <div class="metric-note">Target by end of month 8</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase-panel" id="phase-p5">
+    <div class="phase-header">
+      <div class="phase-title-group">
+        <div class="phase-label">Phase 5</div>
+        <div class="phase-title">Scale</div>
+      </div>
+      <div class="phase-timeframe">Months 9–12</div>
+    </div>
+
+    <div class="phase-goal">
+      <strong>Goal:</strong> The full demand generation loop is running. IDENTT hosts its own event — the asymmetric bet that Authologic can't easily replicate. Rebrand launches if confirmed. ABM motion targeting enterprise accounts. The company exits year one with a functioning marketing engine and European brand recognition.
+    </div>
+
+    <div class="initiative-grid">
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-event">Events</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">IDENTT Owned Event — Wrocław</div>
+        <div class="card-body">Half-day practitioner event: "KYC in Practice" or "Identity & Compliance Summit CEE". Target: local banks, fintechs, compliance officers, and regulators. Invite 2–3 external speakers (Ministry of Digitalisation, a major bank, a fintech). Authologic, a Warsaw startup with SF pretensions, cannot do this with Wrocław authority. Low cost, high relationship value, generates pipeline in exactly the segment where IDENTT is strongest.</div>
+        <div class="card-owner">Marketing Manager + Events support</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-brand">Brand</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">Rebrand Launch (if confirmed)</div>
+        <div class="card-body">New visual identity, website redesign, updated all marketing materials. Launch as a moment — a LinkedIn announcement, a press release, a blog post explaining why. Coordinate with sales so no prospect is confused mid-pipeline. Make the split entity's brand clear and distinct.</div>
+        <div class="card-owner">Marketing Manager + Agency + CEO</div>
+      </div>
+
+      <div class="initiative-card priority">
+        <div class="card-top">
+          <span class="card-category cat-demand">Demand Gen</span>
+          <span class="priority-flag">⬡ PRIORITY</span>
+        </div>
+        <div class="card-title">ABM Motion — Enterprise Targets</div>
+        <div class="card-body">Define a target account list of 30–50 enterprise prospects in EU (tier-1 banks, large fintechs, payment platforms). Run personalised outreach via LinkedIn + email, with account-specific content (e.g. a one-pager about their regulatory exposure). ABM reporting in HubSpot: track account engagement, not just lead volume.</div>
+        <div class="card-owner">Marketing Manager + Sales</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-content">Content</span>
+        </div>
+        <div class="card-title">Anchor Content Asset — Annual Report or Research</div>
+        <div class="card-body">"State of Digital Identity in Europe 2026" — a short original research piece or data report. Survey existing customers, compile regulatory data, add IDENTT commentary from the Scientific Board. This type of asset generates backlinks, press coverage, and positions IDENTT as a category authority, not just a vendor.</div>
+        <div class="card-owner">Marketing Manager + Scientific Board</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-demand">Demand Gen</span>
+        </div>
+        <div class="card-title">Performance Marketing Scale-Up</div>
+        <div class="card-body">By month 9, you have 6 months of CPL data. Double down on what's working, cut what isn't. Add retargeting audiences (website visitors, video viewers, content downloaders). Test new formats: LinkedIn Conversation Ads for direct demo booking, video ads repurposing case study content.</div>
+        <div class="card-owner">Marketing Manager</div>
+      </div>
+
+      <div class="initiative-card">
+        <div class="card-top">
+          <span class="card-category cat-infra">Infrastructure</span>
+        </div>
+        <div class="card-title">Marketing Hire — Content / SEO</div>
+        <div class="card-body">By month 9–10, the marketing manager cannot maintain the content engine alone alongside GTM execution. First hire: English-native content/SEO writer with B2B SaaS or fintech background. Second hire (month 12): either performance marketing specialist or product marketing, depending on where the bottleneck is.</div>
+        <div class="card-owner">Marketing Manager + HR</div>
+      </div>
+
+    </div>
+
+    <div class="deliverables-section">
+      <div class="deliverables-title">End of Year Deliverables</div>
+      <div class="deliverables-list">
+        <div class="deliverable-tag">Owned event delivered</div>
+        <div class="deliverable-tag">Rebrand live (if confirmed)</div>
+        <div class="deliverable-tag">ABM programme running</div>
+        <div class="deliverable-tag">Annual research asset published</div>
+        <div class="deliverable-tag">30+ content pieces total</div>
+        <div class="deliverable-tag">Content hire made</div>
+        <div class="deliverable-tag">2 European markets generating pipeline</div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-block">
+        <div class="metric-label">Monthly demo requests</div>
+        <div class="metric-value">40–60</div>
+        <div class="metric-note">Organic + paid at full run rate</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">EU pipeline contribution</div>
+        <div class="metric-value">40%+</div>
+        <div class="metric-note">Non-Polish opportunities</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Organic traffic</div>
+        <div class="metric-value">5× baseline</div>
+        <div class="metric-note">12 months of SEO compounding</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">LinkedIn followers</div>
+        <div class="metric-value">4,000+</div>
+        <div class="metric-note">End of year 1</div>
+      </div>
+    </div>
+
+    <div class="phase-note">
+      <strong>Year 2 setup:</strong> If this plan executes correctly, year 2 starts with a functioning content engine, 2 European markets generating pipeline, a clear brand, and enough performance data to make intelligent budget decisions. The next moves — expanding to UK, Benelux, or Southern Europe — should be driven by where inbound demand is already coming from, not geography-first guessing.
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="footer-strip">
+  <div class="footer-brand">IDENTT — <span>Marketing Rollout Plan</span> — 12 Months</div>
+  <div class="footer-note">Prepared for internal use · Not for external distribution</div>
+</div>
+
+<script>
+  function showPhase(id) {
+    document.querySelectorAll('.phase-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
+
+    document.getElementById('phase-' + id).classList.add('active');
+
+    const tabs = document.querySelectorAll('.phase-tab');
+    const map = { overview: 0, pre: 1, p1: 2, p2: 3, p3: 4, p4: 5, p5: 6 };
+    tabs[map[id]].classList.add('active');
+
+    // scroll the tab into view on mobile
+    tabs[map[id]].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+</script>
+
+</body>
+</html>
